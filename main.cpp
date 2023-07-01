@@ -52,6 +52,7 @@ int main()
     al_init_primitives_addon(); // inicilaiza o primitives addon do allegro (necessario pra desenhar na tela)
 
     ALLEGRO_COLOR branco = al_map_rgb(255, 255, 255);
+    ALLEGRO_COLOR preto = al_map_rgb(0, 0, 0);
 
     al_install_mouse(); // installa o mouse pro allegro
 
@@ -97,14 +98,14 @@ int main()
     //  =================================================================================
     //                             Organização das palavras
     //  =================================================================================
-    string palavras[] = {"arroz", "feijao", "batata", "macarrao", "peixe", "passas", "couve", "strgonof", "salada", "fricasse"};
+    string palavras[2][10] = {{"arroz", "feijao", "batata", "macarrao", "peixe", "passas", "couve", "strgonof", "salada", "fricasse"}, {"adicao", "subtracao", "multiplicacao", "divisao", "potenciacao", "radiciacao", "igualdede", "maior", "menor", "diferente"}};
 
     char matriz[20][20];
 
     int load = 0, tam_total = 0;
-    for (int i = 0; i < sizeof(palavras) / sizeof(string); i++)
+    for (int i = 0; i < sizeof(palavras) / sizeof(string) * 2; i++)
     {
-        tam_total += palavras[i].length();
+        tam_total += palavras[1][i].length();
     }
     int posicoes_palavras_verticais[5][3];
     int posicoes_palavras_horizontais[5][3];
@@ -129,9 +130,9 @@ int main()
         cout << "Carregando " << load << "% ... \n";
         // al_draw_textf(font, al_map_rgb(0, 0, 0), DISP_W * 0.45, DISP_H * 0.5, 0 , "Carregando %d %...", load);
 
-        string escolhida = palavras[i];
+        string escolhida = palavras[1][i];
         bool teste_coluna = true;
-        int tam_max = 20 - palavras[i].length(), pos_palavra = rand() % tam_max, iteracao_escolhida = 0, pos_coluna;
+        int tam_max = 20 - palavras[1][i].length(), pos_palavra = rand() % tam_max, iteracao_escolhida = 0, pos_coluna;
         do
         {
             srand((time(NULL)));
@@ -161,9 +162,9 @@ int main()
         system("cls");
         cout << "Carregando " << load << "% ... \n";
         // al_draw_textf(font, al_map_rgb(0, 0, 0), DISP_W * 0.45, DISP_H * 0.5, 0 , "Carregando %d %...", load);
-        string escolhida = palavras[i];
+        string escolhida = palavras[1][i];
         bool teste_linha = true;
-        int tam_max = 20 - palavras[i].length(), pos_palavra = rand() % tam_max, iteracao_escolhida = 0, pos_linha;
+        int tam_max = 20 - palavras[1][i].length(), pos_palavra = rand() % tam_max, iteracao_escolhida = 0, pos_linha;
         do
         {
             srand((time(NULL)));
@@ -282,8 +283,6 @@ int main()
             //     }
             // }
 
-
-
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -310,6 +309,7 @@ int main()
                         mouseClickPositionY_init = NULL;
                         mouseClickPositionX_end = NULL;
                         mouseClickPositionY_end = NULL;
+
                     }
                 }
             }
@@ -333,9 +333,9 @@ int main()
                 }
             }
 
-
-            if(acertos >=10){
-                done =true;
+            if (acertos >= 10)
+            {
+                done = true;
             }
 
             logic = false;
